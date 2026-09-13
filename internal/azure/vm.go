@@ -3,6 +3,7 @@ package azure
 import (
 	"context"
 	"fmt"
+	"strings"
 )
 
 type VM struct {
@@ -28,8 +29,9 @@ func (c *Client) ListVMs(ctx context.Context) ([]VM, error) {
 			}
 
 			vms = append(vms, VM{
-				Name:     *vm.Name,
-				Location: getString(vm.Location),
+				Name:          *vm.Name,
+				ResourceGroup: getResourceGroup(vm.ID),
+				Location:      getString(vm.Location),
 			})
 		}
 	}
@@ -43,4 +45,20 @@ func getString(value *string) string {
 	}
 
 	return *value
+}
+
+func getResourceGroup(id *string) string {
+	if id == nil {
+		return ""
+	}
+
+	parts := strings.Split(*id, "/")
+
+	for i := 0; i < len(parts)-1; i++ {
+		if strings.EqualFold(parts[i], "resourceGroups") {
+			return parts[i+1]
+		}
+	}
+
+	return ""
 }
