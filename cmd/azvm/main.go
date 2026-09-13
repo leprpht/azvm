@@ -17,8 +17,7 @@ func main() {
 
 	client, err := azure.NewClient(subscriptionID)
 	if err != nil {
-		fmt.Println("failed to create Azure client:", err)
-		os.Exit(1)
+		log.Fatal("AZURE_SUBSCRIPTION_ID environment variable is not set")
 	}
 
 	fmt.Println("Azure client created successfully")
