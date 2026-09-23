@@ -18,6 +18,7 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version-file: go.mod
+          cache: true
 
       - name: Check formatting
         run: |
@@ -27,4 +28,4 @@ jobs:
         run: go test ./...
 
       - name: Build
-        run: go build -o bin/azvm ./cmd/azvm
+        run: go build -trimpath -o bin/azvm ./cmd/azvm
