@@ -17,6 +17,36 @@ type VMStatus struct {
 	Status string
 }
 
+func (c *Client) GetVMStatus(ctx context.Context, vm VM) (VMStatus, error) {
+	response, err := c.VM.GetInstanceView(
+		ctx,
+		vm.ResourceGroup,
+		vm.Name,
+		nil,
+	)
+	if err != nil {
+		return VMStatus{}, fmt.Errorf("failed to get VM status: %w", err)
+	}
+
+	for _, status := range response.Statuses {
+		if status.Code == nil || status.DisplayStatus == nil {
+			continue
+		}
+
+		if strings.HasPrefix(*status.Code, "PowerState/") {
+			return VMStatus{
+				Name:   vm.Name,
+				Status: *status.DisplayStatus,
+			}, nil
+		}
+	}
+
+	return VMStatus{
+		Name:   vm.Name,
+		Status: "unknown",
+	}, nil
+}
+
 func (c *Client) ListVMs(ctx context.Context) ([]VM, error) {
 	var vms []VM
 
