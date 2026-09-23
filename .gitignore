@@ -1,0 +1,19 @@
+# Build output
+/bin/
+/azvm
+
+# Go
+*.test
+*.out
+
+# Environment / secrets
+.env
+.env.*
+
+# IDE / editor
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
