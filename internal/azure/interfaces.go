@@ -13,4 +13,10 @@ type VMPager interface {
 
 type VMClient interface {
 	NewListAllPager(*armcompute.VirtualMachinesClientListAllOptions) VMPager
+	GetInstanceView(
+		context.Context,
+		string,
+		string,
+		*armcompute.VirtualMachinesClientInstanceViewOptions,
+	) (armcompute.VirtualMachinesClientInstanceViewResponse, error)
 }

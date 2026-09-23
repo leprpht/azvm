@@ -16,6 +16,15 @@ func (m *mockVMClient) NewListAllPager(_ *armcompute.VirtualMachinesClientListAl
 	return m.pager
 }
 
+func (m *mockVMClient) GetInstanceView(
+	ctx context.Context,
+	resourceGroup string,
+	vmName string,
+	options *armcompute.VirtualMachinesClientInstanceViewOptions,
+) (armcompute.VirtualMachinesClientInstanceViewResponse, error) {
+	return armcompute.VirtualMachinesClientInstanceViewResponse{}, nil
+}
+
 type mockVMPager struct {
 	pages []armcompute.VirtualMachinesClientListAllResponse
 	err   error

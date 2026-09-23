@@ -22,6 +22,15 @@ func (c *azureVMClient) NewListAllPager(options *armcompute.VirtualMachinesClien
 	}
 }
 
+func (c *azureVMClient) GetInstanceView(
+	ctx context.Context,
+	resourceGroup string,
+	vmName string,
+	options *armcompute.VirtualMachinesClientInstanceViewOptions,
+) (armcompute.VirtualMachinesClientInstanceViewResponse, error) {
+	return c.client.InstanceView(ctx, resourceGroup, vmName, options)
+}
+
 type azureVMPager struct {
 	pager *runtime.Pager[armcompute.VirtualMachinesClientListAllResponse]
 }

@@ -12,6 +12,11 @@ type VM struct {
 	Location      string
 }
 
+type VMStatus struct {
+	Name   string
+	Status string
+}
+
 func (c *Client) ListVMs(ctx context.Context) ([]VM, error) {
 	var vms []VM
 
