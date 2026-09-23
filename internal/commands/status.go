@@ -1,7 +1,6 @@
 package commands
 
 import (
-	"context"
 	"fmt"
 
 	"github.com/leprpht/azvm/internal/azure"
@@ -13,6 +12,8 @@ var statusCmd = &cobra.Command{
 	Short: "Show the status of an Azure Virtual Machine",
 	Args:  cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
+		ctx := cmd.Context()
+
 		subscriptionID, err := azure.GetSubscriptionID()
 		if err != nil {
 			return err
@@ -23,25 +24,12 @@ var statusCmd = &cobra.Command{
 			return fmt.Errorf("failed to create Azure client: %w", err)
 		}
 
-		vms, err := client.ListVMs(context.Background())
+		vm, err := client.FindVM(ctx, args[0])
 		if err != nil {
-			return fmt.Errorf("failed to list VMs: %w", err)
+			return err
 		}
 
-		var target *azure.VM
-
-		for i := range vms {
-			if vms[i].Name == args[0] {
-				target = &vms[i]
-				break
-			}
-		}
-
-		if target == nil {
-			return fmt.Errorf("VM %q not found", args[0])
-		}
-
-		status, err := client.GetVMStatus(context.Background(), *target)
+		status, err := client.GetVMStatus(ctx, vm)
 		if err != nil {
 			return err
 		}

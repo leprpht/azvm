@@ -364,3 +364,13 @@ func TestGetResourceGroup(t *testing.T) {
 		})
 	}
 }
+
+func TestFindVM(t *testing.T) {
+	t.Run("finds VM by name", func(t *testing.T) {
+		// mock ListVMs response
+	})
+
+	t.Run("returns error when VM does not exist", func(t *testing.T) {
+		// mock ListVMs response
+	})
+}

@@ -17,6 +17,48 @@ type VMStatus struct {
 	Status string
 }
 
+func (c *Client) ListVMs(ctx context.Context) ([]VM, error) {
+	var vms []VM
+
+	pager := c.VM.NewListAllPager(nil)
+
+	for pager.More() {
+		page, err := pager.NextPage(ctx)
+		if err != nil {
+			return nil, fmt.Errorf("failed to list VMs: %w", err)
+		}
+
+		for _, vm := range page.Value {
+			if vm.Name == nil {
+				continue
+			}
+
+			vms = append(vms, VM{
+				Name:          *vm.Name,
+				ResourceGroup: getResourceGroup(vm.ID),
+				Location:      getString(vm.Location),
+			})
+		}
+	}
+
+	return vms, nil
+}
+
+func (c *Client) FindVM(ctx context.Context, name string) (VM, error) {
+	vms, err := c.ListVMs(ctx)
+	if err != nil {
+		return VM{}, err
+	}
+
+	for _, vm := range vms {
+		if vm.Name == name {
+			return vm, nil
+		}
+	}
+
+	return VM{}, fmt.Errorf("VM %q not found", name)
+}
+
 func (c *Client) GetVMStatus(ctx context.Context, vm VM) (VMStatus, error) {
 	response, err := c.VM.GetInstanceView(
 		ctx,
@@ -45,33 +87,6 @@ func (c *Client) GetVMStatus(ctx context.Context, vm VM) (VMStatus, error) {
 		Name:   vm.Name,
 		Status: "unknown",
 	}, nil
-}
-
-func (c *Client) ListVMs(ctx context.Context) ([]VM, error) {
-	var vms []VM
-
-	pager := c.VM.NewListAllPager(nil)
-
-	for pager.More() {
-		page, err := pager.NextPage(ctx)
-		if err != nil {
-			return nil, fmt.Errorf("failed to list VMs: %w", err)
-		}
-
-		for _, vm := range page.Value {
-			if vm.Name == nil {
-				continue
-			}
-
-			vms = append(vms, VM{
-				Name:          *vm.Name,
-				ResourceGroup: getResourceGroup(vm.ID),
-				Location:      getString(vm.Location),
-			})
-		}
-	}
-
-	return vms, nil
 }
 
 func getString(value *string) string {
