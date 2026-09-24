@@ -13,6 +13,12 @@ and this project follows [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 
+## [0.2.2] - 2026-09-24
+
+### Changed
+
+- Refactored list command to use context for Azure VM listing
+
 ## [0.2.1] - 2026-09-24
 
 ### Changed
