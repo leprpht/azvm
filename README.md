@@ -310,9 +310,9 @@ Supported release targets:
 - [x] Azure CLI login
 - [x] List VMs
 - [x] VM status
-- [ ] Start VM
-- [ ] Stop VM
-- [ ] Restart VM
+- [x] Start VM
+- [x] Stop VM
+- [x] Restart VM
 - [ ] Public IP
 - [ ] SSH
 - [ ] Remote command execution
