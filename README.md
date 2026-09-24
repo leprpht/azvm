@@ -2,6 +2,8 @@
 
 A Go CLI for managing Azure Virtual Machines directly from the terminal, built with the Azure SDK and Cobra.
 
+[Website](https://leprpht.github.io/azvm/) · [Releases](https://github.com/leprpht/azvm/releases)
+
 ## Features
 
 - Authenticate with Azure CLI
