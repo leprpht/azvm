@@ -5,6 +5,7 @@ import (
 	"errors"
 	"testing"
 
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v7"
 )
 
@@ -23,6 +24,57 @@ func (m *mockVMClient) GetInstanceView(
 	options *armcompute.VirtualMachinesClientInstanceViewOptions,
 ) (armcompute.VirtualMachinesClientInstanceViewResponse, error) {
 	return armcompute.VirtualMachinesClientInstanceViewResponse{}, nil
+}
+
+func (m *mockVMClient) BeginStart(
+	ctx context.Context,
+	resourceGroup string,
+	vmName string,
+	options *armcompute.VirtualMachinesClientBeginStartOptions,
+) (*runtime.Poller[armcompute.VirtualMachinesClientStartResponse], error) {
+	return nil, nil
+}
+
+func (m *mockVMClient) BeginPowerOff(
+	ctx context.Context,
+	resourceGroup string,
+	vmName string,
+	options *armcompute.VirtualMachinesClientBeginPowerOffOptions,
+) (*runtime.Poller[armcompute.VirtualMachinesClientPowerOffResponse], error) {
+	return nil, nil
+}
+
+func (m *mockVMClient) Start(
+	ctx context.Context,
+	resourceGroup string,
+	vmName string,
+) error {
+	return nil
+}
+
+func (m *mockVMClient) PowerOff(
+	ctx context.Context,
+	resourceGroup string,
+	vmName string,
+) error {
+	return nil
+}
+
+func (m *mockVMClient) Restart(
+	ctx context.Context,
+	resourceGroup string,
+	vmName string,
+) error {
+	return nil
+}
+
+func (m *mockVMClient) BeginRestart(
+	ctx context.Context,
+	resourceGroup string,
+	vmName string,
+	options *armcompute.VirtualMachinesClientBeginRestartOptions,
+) (*runtime.Poller[armcompute.VirtualMachinesClientRestartResponse], error) {
+	return nil, nil
 }
 
 type mockVMPager struct {

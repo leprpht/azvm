@@ -1,0 +1,43 @@
+package commands
+
+import (
+	"fmt"
+
+	"github.com/leprpht/azvm/internal/azure"
+	"github.com/spf13/cobra"
+)
+
+var stopCmd = &cobra.Command{
+	Use:   "stop <vm>",
+	Short: "Stop an Azure Virtual Machine",
+	Args:  cobra.ExactArgs(1),
+	RunE: func(cmd *cobra.Command, args []string) error {
+		ctx := cmd.Context()
+
+		subscriptionID, err := azure.GetSubscriptionID()
+		if err != nil {
+			return fmt.Errorf("failed to get subscription ID: %w", err)
+		}
+
+		client, err := azure.NewClient(subscriptionID)
+		if err != nil {
+			return fmt.Errorf("failed to create Azure client: %w", err)
+		}
+
+		vm, err := client.FindVM(ctx, args[0])
+		if err != nil {
+			return fmt.Errorf("failed to find VM %q: %w", args[0], err)
+		}
+
+		if err := client.StopVM(ctx, vm); err != nil {
+			return fmt.Errorf("failed to stop VM %q: %w", args[0], err)
+		}
+
+		fmt.Printf("Stopped VM: %s\n", vm.Name)
+		return nil
+	},
+}
+
+func init() {
+	rootCmd.AddCommand(stopCmd)
+}

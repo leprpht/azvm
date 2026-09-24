@@ -89,6 +89,60 @@ func (c *Client) GetVMStatus(ctx context.Context, vm VM) (VMStatus, error) {
 	}, nil
 }
 
+func (c *Client) StartVM(ctx context.Context, vm VM) error {
+	poller, err := c.VM.BeginStart(
+		ctx,
+		vm.ResourceGroup,
+		vm.Name,
+		nil,
+	)
+	if err != nil {
+		return fmt.Errorf("failed to start VM: %w", err)
+	}
+
+	if _, err := poller.PollUntilDone(ctx, nil); err != nil {
+		return fmt.Errorf("failed to start VM: %w", err)
+	}
+
+	return nil
+}
+
+func (c *Client) StopVM(ctx context.Context, vm VM) error {
+	poller, err := c.VM.BeginPowerOff(
+		ctx,
+		vm.ResourceGroup,
+		vm.Name,
+		nil,
+	)
+	if err != nil {
+		return fmt.Errorf("failed to stop VM: %w", err)
+	}
+
+	if _, err := poller.PollUntilDone(ctx, nil); err != nil {
+		return fmt.Errorf("failed to stop VM: %w", err)
+	}
+
+	return nil
+}
+
+func (c *Client) RestartVM(ctx context.Context, vm VM) error {
+	poller, err := c.VM.BeginRestart(
+		ctx,
+		vm.ResourceGroup,
+		vm.Name,
+		nil,
+	)
+	if err != nil {
+		return fmt.Errorf("failed to restart VM: %w", err)
+	}
+
+	if _, err := poller.PollUntilDone(ctx, nil); err != nil {
+		return fmt.Errorf("failed to restart VM: %w", err)
+	}
+
+	return nil
+}
+
 func getString(value *string) string {
 	if value == nil {
 		return ""

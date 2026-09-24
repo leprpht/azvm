@@ -16,7 +16,9 @@ type azureVMClient struct {
 	client *armcompute.VirtualMachinesClient
 }
 
-func (c *azureVMClient) NewListAllPager(options *armcompute.VirtualMachinesClientListAllOptions) VMPager {
+func (c *azureVMClient) NewListAllPager(
+	options *armcompute.VirtualMachinesClientListAllOptions,
+) VMPager {
 	return &azureVMPager{
 		pager: c.client.NewListAllPager(options),
 	}
@@ -31,6 +33,33 @@ func (c *azureVMClient) GetInstanceView(
 	return c.client.InstanceView(ctx, resourceGroup, vmName, options)
 }
 
+func (c *azureVMClient) BeginStart(
+	ctx context.Context,
+	resourceGroup string,
+	vmName string,
+	options *armcompute.VirtualMachinesClientBeginStartOptions,
+) (*runtime.Poller[armcompute.VirtualMachinesClientStartResponse], error) {
+	return c.client.BeginStart(ctx, resourceGroup, vmName, options)
+}
+
+func (c *azureVMClient) BeginPowerOff(
+	ctx context.Context,
+	resourceGroup string,
+	vmName string,
+	options *armcompute.VirtualMachinesClientBeginPowerOffOptions,
+) (*runtime.Poller[armcompute.VirtualMachinesClientPowerOffResponse], error) {
+	return c.client.BeginPowerOff(ctx, resourceGroup, vmName, options)
+}
+
+func (c *azureVMClient) BeginRestart(
+	ctx context.Context,
+	resourceGroup string,
+	vmName string,
+	options *armcompute.VirtualMachinesClientBeginRestartOptions,
+) (*runtime.Poller[armcompute.VirtualMachinesClientRestartResponse], error) {
+	return c.client.BeginRestart(ctx, resourceGroup, vmName, options)
+}
+
 type azureVMPager struct {
 	pager *runtime.Pager[armcompute.VirtualMachinesClientListAllResponse]
 }
@@ -39,7 +68,9 @@ func (p *azureVMPager) More() bool {
 	return p.pager.More()
 }
 
-func (p *azureVMPager) NextPage(ctx context.Context) (armcompute.VirtualMachinesClientListAllResponse, error) {
+func (p *azureVMPager) NextPage(
+	ctx context.Context,
+) (armcompute.VirtualMachinesClientListAllResponse, error) {
 	return p.pager.NextPage(ctx)
 }
 
