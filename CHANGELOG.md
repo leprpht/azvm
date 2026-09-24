@@ -13,6 +13,14 @@ and this project follows [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 
+## [0.3.0] - 2026-09-24
+
+### Added
+
+- Added `azvm start <vm>`
+- Added `azvm stop <vm>`
+- Added `azvm restart <vm>`
+
 ## [0.2.2] - 2026-09-24
 
 ### Changed

@@ -7,6 +7,7 @@ A Go CLI for managing Azure Virtual Machines directly from the terminal, built w
 - Authenticate with Azure CLI
 - List Azure Virtual Machines
 - Check VM status
+- Start, stop, and restart Azure Virtual Machines
 - Cross-platform release binaries for macOS, Linux, and Windows
 
 ## Installation
@@ -44,7 +45,7 @@ The filename shown below is only an example. **Use the exact filename of the bin
 For example:
 
 ```bash
-sudo install -m 755 azvm-v0.2.1-darwin-arm64 /usr/local/bin/azvm
+sudo install -m 755 azvm-v0.3.0-darwin-arm64 /usr/local/bin/azvm
 ```
 
 After installation, you can run:
@@ -53,6 +54,9 @@ After installation, you can run:
 azvm login
 azvm list
 azvm status my-vm
+azvm start my-vm
+azvm stop my-vm
+azvm restart my-vm
 ```
 
 ### Linux
@@ -76,7 +80,7 @@ The filename shown below is only an example. **Use the exact filename of the bin
 For example:
 
 ```bash
-sudo install -m 755 azvm-v0.2.1-linux-amd64 /usr/local/bin/azvm
+sudo install -m 755 azvm-v0.3.0-linux-amd64 /usr/local/bin/azvm
 ```
 
 After installation, you can run:
@@ -85,6 +89,9 @@ After installation, you can run:
 azvm login
 azvm list
 azvm status my-vm
+azvm start my-vm
+azvm stop my-vm
+azvm restart my-vm
 ```
 
 ### Windows
@@ -100,7 +107,7 @@ windows-amd64.exe
 For example, if the downloaded file is:
 
 ```text
-azvm-v0.2.1-windows-amd64.exe
+azvm-v0.3.0-windows-amd64.exe
 ```
 
 and place it in a directory on your `PATH`.
@@ -109,7 +116,7 @@ One simple option is to create a personal `bin` directory:
 
 ```powershell
 mkdir "$HOME\bin" -Force
-Move-Item .\azvm-v0.2.1-windows-amd64.exe "$HOME\bin\azvm.exe"
+Move-Item .\azvm-v0.3.0-windows-amd64.exe "$HOME\bin\azvm.exe"
 ```
 
 Then add `$HOME\bin` to your user `PATH`.
@@ -120,6 +127,9 @@ After restarting PowerShell, you can run:
 azvm login
 azvm list
 azvm status my-vm
+azvm start my-vm
+azvm stop my-vm
+azvm restart my-vm
 ```
 
 You can verify that Windows can find the command with:
@@ -180,6 +190,42 @@ Example:
 
 ```text
 Name: my-vm, Status: VM running
+```
+
+### Start a VM
+
+```bash
+azvm start my-vm
+```
+
+Example:
+
+```text
+Started VM: my-vm
+```
+
+### Stop a VM
+
+```bash
+azvm stop my-vm
+```
+
+Example:
+
+```text
+Stopped VM: my-vm
+```
+
+### Restart a VM
+
+```bash
+azvm restart my-vm
+```
+
+Example:
+
+```text
+Restarted VM: my-vm
 ```
 
 ## Development
