@@ -12,6 +12,8 @@ var stopCmd = &cobra.Command{
 	Short: "Stop an Azure Virtual Machine",
 	Args:  cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
+		stopSpinner := startSpinner(cmd.Context())
+		defer stopSpinner()
 		ctx := cmd.Context()
 
 		subscriptionID, err := azure.GetSubscriptionID()

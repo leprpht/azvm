@@ -12,6 +12,8 @@ var loginCmd = &cobra.Command{
 	Use:   "login",
 	Short: "Log in to Azure",
 	RunE: func(cmd *cobra.Command, args []string) error {
+		stopSpinner := startSpinner(cmd.Context())
+		defer stopSpinner()
 		command := exec.Command("az", "login")
 		command.Stdout = os.Stdout
 		command.Stderr = os.Stderr

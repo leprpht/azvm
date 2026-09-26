@@ -14,6 +14,8 @@ var doctorCmd = &cobra.Command{
 	Short: "Diagnose available VM and network information",
 	Args:  cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
+		stopSpinner := startSpinner(cmd.Context())
+		defer stopSpinner()
 		sub, err := azure.GetSubscriptionID()
 		if err != nil {
 			return err

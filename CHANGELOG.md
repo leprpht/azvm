@@ -13,6 +13,12 @@ and this project follows [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 
+## [0.5.1] - 2026-09-26
+
+### Added
+
+- Added a looping progress animation while commands are pending
+
 ## [0.5.0] - 2026-09-26
 
 ### Added

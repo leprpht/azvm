@@ -11,6 +11,8 @@ var listCmd = &cobra.Command{
 	Use:   "list",
 	Short: "List Azure Virtual Machines",
 	RunE: func(cmd *cobra.Command, args []string) error {
+		stopSpinner := startSpinner(cmd.Context())
+		defer stopSpinner()
 		ctx := cmd.Context()
 
 		subscriptionID, err := azure.GetSubscriptionID()
