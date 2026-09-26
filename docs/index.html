@@ -487,8 +487,8 @@
           <h1>Manage Azure VMs from your terminal.</h1>
 
           <p>
-            azvm is a Go CLI for discovering and managing Azure Virtual
-            Machines without leaving the terminal.
+            azvm is a Go CLI for discovering, inspecting, diagnosing, and
+            managing Azure Virtual Machines without leaving the terminal.
           </p>
 
           <div class="buttons">
@@ -557,6 +557,16 @@
             <br>
 
             <div>
+              <span class="prompt">$</span> azvm doctor my-vm
+            </div>
+
+            <div class="output">
+              VM running ✓ · Network interface ✓ · Private IP ✓
+            </div>
+
+            <br>
+
+            <div>
               <span class="prompt">$</span> azvm restart my-vm
             </div>
 
@@ -574,8 +584,9 @@
           <h2>Built around the operations you actually need.</h2>
 
           <p>
-            azvm provides a focused command-line interface for common Azure
-            Virtual Machine operations.
+            azvm provides a focused command-line interface for Azure Virtual
+            Machine discovery, inspection, diagnostics, and lifecycle
+            operations.
           </p>
         </div>
 
@@ -610,6 +621,14 @@
               private IPs, subnets, VNets, and public IPs.
             </p>
           </article>
+
+          <article class="feature">
+            <h3>VM diagnostics</h3>
+            <p>
+              Interpret available VM and network information with deterministic
+              checks and a human-readable diagnosis.
+            </p>
+          </article>
         </div>
       </div>
     </section>
@@ -632,12 +651,59 @@
           <div class="command">azvm stop <span>&lt;vm&gt;</span></div>
           <div class="command">azvm restart <span>&lt;vm&gt;</span></div>
           <div class="command">azvm inspect <span>&lt;vm&gt;</span></div>
+          <div class="command">azvm doctor <span>&lt;vm&gt;</span></div>
         </div>
 
         <div class="section-heading" style="margin-top: 35px; margin-bottom: 0;">
           <p>
             Inspect output is illustrative and reports information available
             from Azure. Missing public IPs are shown as <code>none</code>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-heading">
+          <h2>Diagnose a VM.</h2>
+
+          <p>
+            <code>doctor</code> interprets information collected from Azure
+            using deterministic checks and prepared diagnostic explanations.
+            It does not use AI or probabilistic analysis.
+          </p>
+        </div>
+
+        <pre><code>$ azvm doctor mc
+
+VM: mc
+
+Compute
+  Status:          ✗ stopped
+
+Network
+  NIC attached:    ✓ attached
+  Private IP:      ✓ 172.16.0.4
+  Public IP:       ✓ 20.55.72.218
+
+Checks
+  VM running           ✗ stopped
+  Network interface    ✓ attached
+  Private IP           ✓ 172.16.0.4
+  Public IP            ✓ 20.55.72.218
+
+Diagnosis
+  The VM is not running.
+
+  Network connectivity cannot be reliably diagnosed
+  until the VM is started.</code></pre>
+
+        <div class="section-heading" style="margin-top: 24px; margin-bottom: 0;">
+          <p>
+            The current diagnostic checks are based on VM state and Azure
+            network configuration. <code>doctor</code> does not yet perform
+            SSH, TCP, DNS, firewall, NSG, or routing tests.
           </p>
         </div>
       </div>
@@ -785,8 +851,9 @@ az account show</code></pre>
           <h2>Roadmap.</h2>
 
           <p>
-            The current lifecycle commands are implemented. More remote
-            management capabilities are planned.
+            The current discovery, inspection, diagnostics, and lifecycle
+            commands are implemented. More remote management capabilities are
+            planned.
           </p>
         </div>
 
@@ -797,8 +864,13 @@ az account show</code></pre>
           </article>
 
           <article class="roadmap-item">
+            <div class="roadmap-status">AVAILABLE</div>
+            <h3>VM diagnostics / doctor</h3>
+          </article>
+
+          <article class="roadmap-item">
             <div class="roadmap-status">PLANNED</div>
-            <h3>Public IP</h3>
+            <h3>Connectivity diagnostics</h3>
           </article>
 
           <article class="roadmap-item">

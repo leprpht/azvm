@@ -11,6 +11,7 @@ A Go CLI for managing Azure Virtual Machines directly from the terminal, built w
 - Check VM status
 - Start, stop, and restart Azure Virtual Machines
 - Inspect VM compute and network information
+- Deterministically diagnose available VM and network information
 - Cross-platform release binaries for macOS, Linux, and Windows
 
 ## Installation
@@ -61,6 +62,7 @@ azvm start my-vm
 azvm stop my-vm
 azvm restart my-vm
 azvm inspect my-vm
+azvm doctor my-vm
 ```
 
 ### Linux
@@ -201,6 +203,17 @@ Name: my-vm, Status: VM running
 ```bash
 azvm inspect my-vm
 ```
+
+### Diagnose a VM
+
+```bash
+azvm doctor <vm-name>
+```
+
+`inspect` shows VM configuration and context. `doctor` interprets the
+available Azure VM and network information using deterministic checks and
+reports detected problems. It does not perform SSH, TCP, DNS, firewall, NSG,
+or routing tests.
 
 Example output (values are illustrative):
 
@@ -343,6 +356,7 @@ Supported release targets:
 - [x] Start VM
 - [x] Stop VM
 - [x] Restart VM
+- [x] VM diagnostics / doctor
 - [ ] Public IP
 - [ ] SSH
 - [ ] Remote command execution

@@ -13,6 +13,14 @@ and this project follows [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 
+## [0.5.0] - 2026-09-26
+
+### Added
+
+- Added `azvm doctor <vm>` for deterministic VM diagnostics
+- Added structured diagnostic checks and findings
+- Added human-readable diagnosis output based on collected VM information
+
 ## [0.4.0] - 2026-09-26
 
 ### Added
