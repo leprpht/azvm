@@ -547,6 +547,16 @@
             <br>
 
             <div>
+              <span class="prompt">$</span> azvm inspect my-vm
+            </div>
+
+            <div class="output">
+              VM: my-vm · westeurope · 10.0.2.14
+            </div>
+
+            <br>
+
+            <div>
               <span class="prompt">$</span> azvm restart my-vm
             </div>
 
@@ -592,6 +602,14 @@
               terminal.
             </p>
           </article>
+
+          <article class="feature">
+            <h3>VM inspection</h3>
+            <p>
+              View compute details and network information, including NICs,
+              private IPs, subnets, VNets, and public IPs.
+            </p>
+          </article>
         </div>
       </div>
     </section>
@@ -613,6 +631,53 @@
           <div class="command">azvm start <span>&lt;vm&gt;</span></div>
           <div class="command">azvm stop <span>&lt;vm&gt;</span></div>
           <div class="command">azvm restart <span>&lt;vm&gt;</span></div>
+          <div class="command">azvm inspect <span>&lt;vm&gt;</span></div>
+        </div>
+
+        <div class="section-heading" style="margin-top: 35px; margin-bottom: 0;">
+          <p>
+            Inspect output is illustrative and reports information available
+            from Azure. Missing public IPs are shown as <code>none</code>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-heading">
+          <h2>Inspect a VM.</h2>
+
+          <p>
+            See a single report combining VM compute details with its Azure
+            network relationships.
+          </p>
+        </div>
+
+        <pre><code>azvm inspect my-vm
+
+VM: my-vm
+
+Compute
+  Status:          VM running
+  Location:        westeurope
+  Resource Group:  production
+  Size:             Standard_B2s
+  OS:               Linux
+
+Network
+  NIC:             my-vm-nic
+  VNet:            production-vnet
+  Subnet:          backend
+  Private IP:      10.0.2.14
+  Public IP:       none</code></pre>
+
+        <div class="section-heading" style="margin-top: 24px; margin-bottom: 0;">
+          <p>
+            Values in this example are illustrative. <code>inspect</code>
+            reports information; it does not perform diagnostics,
+            connectivity testing, or health analysis.
+          </p>
         </div>
       </div>
     </section>
@@ -726,6 +791,11 @@ az account show</code></pre>
         </div>
 
         <div class="roadmap">
+          <article class="roadmap-item">
+            <div class="roadmap-status">AVAILABLE</div>
+            <h3>VM inspection</h3>
+          </article>
+
           <article class="roadmap-item">
             <div class="roadmap-status">PLANNED</div>
             <h3>Public IP</h3>

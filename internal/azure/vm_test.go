@@ -25,6 +25,9 @@ func (m *mockVMClient) GetInstanceView(
 ) (armcompute.VirtualMachinesClientInstanceViewResponse, error) {
 	return armcompute.VirtualMachinesClientInstanceViewResponse{}, nil
 }
+func (m *mockVMClient) Get(context.Context, string, string, *armcompute.VirtualMachinesClientGetOptions) (armcompute.VirtualMachinesClientGetResponse, error) {
+	return armcompute.VirtualMachinesClientGetResponse{}, nil
+}
 
 func (m *mockVMClient) BeginStart(
 	ctx context.Context,

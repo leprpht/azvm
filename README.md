@@ -10,6 +10,7 @@ A Go CLI for managing Azure Virtual Machines directly from the terminal, built w
 - List Azure Virtual Machines
 - Check VM status
 - Start, stop, and restart Azure Virtual Machines
+- Inspect VM compute and network information
 - Cross-platform release binaries for macOS, Linux, and Windows
 
 ## Installation
@@ -59,6 +60,7 @@ azvm status my-vm
 azvm start my-vm
 azvm stop my-vm
 azvm restart my-vm
+azvm inspect my-vm
 ```
 
 ### Linux
@@ -192,6 +194,32 @@ Example:
 
 ```text
 Name: my-vm, Status: VM running
+```
+
+### Inspect a VM
+
+```bash
+azvm inspect my-vm
+```
+
+Example output (values are illustrative):
+
+```text
+VM: my-vm
+
+Compute
+  Status:          VM running
+  Location:        westeurope
+  Resource Group:  production
+  Size:             Standard_B2s
+  OS:               Linux
+
+Network
+  NIC:             my-vm-nic
+  VNet:            production-vnet
+  Subnet:          backend
+  Private IP:      10.0.2.14
+  Public IP:       none
 ```
 
 ### Start a VM

@@ -13,6 +13,12 @@ and this project follows [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 
+## [0.4.0] - 2026-09-26
+
+### Added
+
+- Added `azvm inspect <vm>` for displaying VM compute and network information
+
 ## [0.3.0] - 2026-09-24
 
 ### Added

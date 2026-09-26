@@ -23,6 +23,7 @@ type VMClient interface {
 		string,
 		*armcompute.VirtualMachinesClientInstanceViewOptions,
 	) (armcompute.VirtualMachinesClientInstanceViewResponse, error)
+	Get(context.Context, string, string, *armcompute.VirtualMachinesClientGetOptions) (armcompute.VirtualMachinesClientGetResponse, error)
 
 	BeginStart(
 		context.Context,
@@ -45,3 +46,9 @@ type VMClient interface {
 		*armcompute.VirtualMachinesClientBeginRestartOptions,
 	) (*runtime.Poller[armcompute.VirtualMachinesClientRestartResponse], error)
 }
+
+type NetworkClient interface {
+	GetInterface(context.Context, string, string) (string, []NetworkIPConfiguration, error)
+	GetPublicIP(context.Context, string, string) (string, error)
+}
+type NetworkIPConfiguration struct{ PrivateIP, SubnetID, PublicIPID string }
